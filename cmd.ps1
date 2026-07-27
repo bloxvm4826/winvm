@@ -1,1 +1,1 @@
-Go
+Act; Click 960 191; Start-Sleep 1; Joy 0 2500; Joy 90 2000
