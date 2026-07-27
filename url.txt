@@ -1,2 +1,2 @@
 novnc=https://opal-pouncing-defog.ngrok-free.dev
-rdp=tcp://4.tcp.ngrok.io:19348
+rdp=tcp://2.tcp.us-cal-1.ngrok.io:18176
