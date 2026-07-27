@@ -1,2 +1,2 @@
-[23:24:12]
-ERR: Cannot add type. Compilation errors occurred.
+[23:24:47]
+lib ready 23:24:47
