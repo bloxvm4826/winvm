@@ -1,1 +1,2 @@
-runner online 23:24:11
+[23:24:12]
+ERR: Cannot add type. Compilation errors occurred.
