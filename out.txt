@@ -1,2 +1,2 @@
-[23:24:47]
-lib ready 23:24:47
+[23:25:43]
+ERR: Method invocation failed because [W] does not contain a method named 'IsIconic'.
