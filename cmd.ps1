@@ -1,1 +1,1 @@
-Act; Click 341 123
+Act; Tap 340 123
