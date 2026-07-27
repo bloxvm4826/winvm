@@ -9,15 +9,27 @@ public class W {
   [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, uint d, int e);
   [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
   [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int c);
+  [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
+  [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr h);
   [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
   public const uint DOWN = 0x0002, UP = 0x0004;
 }
 "@ -ErrorAction SilentlyContinue
 
-function Act {
-  $p = Get-Process chrome -EA 0 | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1
-  if ($p) { [W]::ShowWindow($p.MainWindowHandle, 9) | Out-Null; [W]::SetForegroundWindow($p.MainWindowHandle) | Out-Null; Start-Sleep -Milliseconds 350 }
+function Hwnd {
+  (Get-Process chrome -EA 0 | Where-Object { $_.MainWindowHandle -ne 0 } | Select-Object -First 1).MainWindowHandle
 }
+
+# Focus Chrome WITHOUT changing its maximized state (SW_RESTORE would un-maximize it).
+function Act {
+  $h = Hwnd
+  if (-not $h) { return }
+  if ([W]::IsIconic($h)) { [W]::ShowWindow($h, 3) | Out-Null; Start-Sleep -Milliseconds 400 }
+  [W]::SetForegroundWindow($h) | Out-Null
+  Start-Sleep -Milliseconds 350
+}
+
+function Maxi { $h = Hwnd; if ($h) { [W]::ShowWindow($h, 3) | Out-Null; Start-Sleep -Milliseconds 600 } }
 
 function Click([int]$x, [int]$y, [int]$hold = 90) {
   [W]::SetCursorPos($x, $y); Start-Sleep -Milliseconds 120
@@ -75,4 +87,4 @@ function Play([int]$Minutes = 20, [int]$LegMs = 2400) {
   Write-Host "play done"
 }
 
-Write-Host "lib loaded: Act Click CClick Drag Joy Look Play"
+Write-Host "lib loaded: Act Maxi Click CClick Drag Joy Look Play"
