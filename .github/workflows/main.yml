@@ -20,7 +20,11 @@ jobs:
       - name: Install TightVNC
         run: |
           choco install -y tightvnc --installArguments "'ADDLOCAL=Server SET_USEVNCAUTHENTICATION=1 VALUE_OF_USEVNCAUTHENTICATION=1 SET_PASSWORD=1 VALUE_OF_PASSWORD=bloxvm26 SET_USECONTROLAUTHENTICATION=1 VALUE_OF_USECONTROLAUTHENTICATION=0'" --no-progress
-          Start-Sleep 5
+          New-Item -Path 'HKLM:\SOFTWARE\TightVNC\Server' -Force | Out-Null
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\TightVNC\Server' -Name AllowLoopback -Value 1 -Type DWord
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\TightVNC\Server' -Name LoopbackOnly -Value 0 -Type DWord
+          Restart-Service tvnserver
+          Start-Sleep 6
           Get-Service tvnserver | Format-List Name,Status
           netstat -an | Select-String ":5900"
 
