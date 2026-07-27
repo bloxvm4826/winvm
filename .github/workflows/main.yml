@@ -1,0 +1,88 @@
+name: winvm
+on: [workflow_dispatch]
+
+permissions:
+  contents: write
+
+jobs:
+  vm:
+    runs-on: windows-latest
+    timeout-minutes: 350
+    steps:
+      - name: Enable RDP + account
+        run: |
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name fDenyTSConnections -Value 0
+          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name UserAuthentication -Value 0
+          Set-LocalUser -Name runneradmin -Password (ConvertTo-SecureString -AsPlainText "BlxVm2026!" -Force)
+          Write-Host "rdp ready"
+
+      - name: Install TightVNC
+        run: |
+          choco install -y tightvnc --installArguments "'ADDLOCAL=Server SET_USEVNCAUTHENTICATION=1 VALUE_OF_USEVNCAUTHENTICATION=1 SET_PASSWORD=1 VALUE_OF_PASSWORD=bloxvm26 SET_USECONTROLAUTHENTICATION=1 VALUE_OF_USECONTROLAUTHENTICATION=0'" --no-progress
+          Start-Sleep 5
+          Get-Service tvnserver | Format-List Name,Status
+          netstat -an | Select-String ":5900"
+
+      - name: Install noVNC + websockify
+        run: |
+          Invoke-WebRequest https://github.com/novnc/noVNC/archive/refs/tags/v1.5.0.zip -OutFile novnc.zip
+          Expand-Archive novnc.zip -DestinationPath C:\ -Force
+          python -m pip install --quiet websockify
+          Start-Process -WindowStyle Hidden python -ArgumentList "-m","websockify","--web=C:\noVNC-1.5.0","6080","127.0.0.1:5900"
+          Start-Sleep 6
+          netstat -an | Select-String ":6080"
+
+      - name: Start ngrok
+        env:
+          NGROK: ${{ secrets.NGROK_AUTH_TOKEN }}
+        run: |
+          Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+          Expand-Archive ngrok.zip -DestinationPath C:\ngrok -Force
+          $cfg = @"
+          version: "2"
+          authtoken: $env:NGROK
+          tunnels:
+            novnc:
+              proto: http
+              addr: 6080
+            rdp:
+              proto: tcp
+              addr: 3389
+          "@
+          Set-Content -Path C:\ngrok\ngrok.yml -Value $cfg
+          Start-Process -WindowStyle Hidden C:\ngrok\ngrok.exe -ArgumentList "start","--all","--config","C:\ngrok\ngrok.yml"
+          Start-Sleep 12
+          try { $t = (Invoke-RestMethod http://127.0.0.1:4040/api/tunnels).tunnels } catch { $t = @() }
+          if (-not $t) {
+            Write-Host "two tunnels failed, retrying http only"
+            Stop-Process -Name ngrok -Force -ErrorAction SilentlyContinue
+            Start-Process -WindowStyle Hidden C:\ngrok\ngrok.exe -ArgumentList "http","6080","--authtoken","$env:NGROK"
+            Start-Sleep 12
+            $t = (Invoke-RestMethod http://127.0.0.1:4040/api/tunnels).tunnels
+          }
+          $lines = $t | ForEach-Object { "$($_.name)=$($_.public_url)" }
+          $out = ($lines -join "`n")
+          Write-Host $out
+          Set-Content -Path url.txt -Value $out
+
+      - name: Publish URLs to repo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $body = Get-Content url.txt -Raw
+          $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($body))
+          $h = @{ Authorization = "Bearer $env:GH_TOKEN"; Accept = "application/vnd.github+json" }
+          $uri = "https://api.github.com/repos/${{ github.repository }}/contents/url.txt"
+          try { $sha = (Invoke-RestMethod -Headers $h $uri).sha } catch { $sha = $null }
+          $payload = @{ message = "url"; content = $b64 }
+          if ($sha) { $payload.sha = $sha }
+          Invoke-RestMethod -Method PUT -Headers $h -Uri $uri -Body ($payload | ConvertTo-Json) | Out-Null
+          Write-Host "published"
+
+      - name: Keep alive
+        run: |
+          for ($i=0; $i -lt 330; $i++) {
+            Start-Sleep 60
+            if ($i % 10 -eq 0) { Write-Host "alive $i min" }
+          }
