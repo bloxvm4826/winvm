@@ -1,8 +1,7 @@
 Act
-Joy 300 900; Start-Sleep 1
-Joy 300 900; Start-Sleep 1
-Joy 300 900; Start-Sleep 1
-"move away from robux pads"
+Joy 20 900; Start-Sleep 1
+Joy 20 900; Start-Sleep 2
+"toward top green pad"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
