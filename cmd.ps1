@@ -1,6 +1,7 @@
-Scroll 800 500 -6
+Act
+Drag 800 640 800 260 200 25
 Start-Sleep 3
-"scrolled2"
+"swiped"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
