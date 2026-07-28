@@ -1,6 +1,6 @@
-$exe='C:\Program Files\RustDesk\rustdesk.exe'
-cmd /c "`"$exe`" --get-id > C:\id.txt 2>&1"
-Start-Sleep 6
-if (Test-Path C:\id.txt) { "GETID:[" + ((Get-Content C:\id.txt -Raw).Trim()) + "]" } else { "no id.txt" }
-& $exe --password 'BlxVm2026rd' | Out-String
-"ver: " + (Get-Item $exe).VersionInfo.FileVersion
+iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1 -o C:\l.ps1
+. C:\l.ps1
+Add-Type -AssemblyName System.Windows.Forms
+$s=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+"screen: $($s.Width)x$($s.Height)"
+$h=Hwnd; "chrome hwnd: $h  zoomed:" + [W]::IsZoomed($h)
