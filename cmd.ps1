@@ -1,7 +1,7 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-Respawn
+$null = Click 283 481 200
 Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
