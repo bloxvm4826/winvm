@@ -1,7 +1,7 @@
 Act
-Joy 289 800; Joy 289 600
-Start-Sleep 2
-"walk289"
+Joy 70 600; Start-Sleep 1
+Joy 20 700; Start-Sleep 1
+"walked to green pads"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
