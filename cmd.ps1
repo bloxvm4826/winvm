@@ -1,7 +1,16 @@
-'TAG:T1785259253'
-$t=[int](Get-Date -UFormat %s)
-irm "https://raw.githubusercontent.com/bloxvm4826/winvm/main/play3.ps1?t=$t" -OutFile C:\play3.ps1
-Remove-Item C:\play3.log -EA 0
-Start-Process powershell -ArgumentList "-ExecutionPolicy","Bypass","-WindowStyle","Hidden","-File","C:\play3.ps1","-Minutes","55" -WindowStyle Hidden
-Start-Sleep -m 2500
-"v3 launched"
+'TAG:T1785259604'
+"log: "+((Get-Content C:\play3.log -Tail 3) -join " / ")
+Add-Type -AssemblyName System.Windows.Forms,System.Drawing
+$b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
+$bmp=New-Object Drawing.Bitmap $b.Width,$b.Height
+$g=[Drawing.Graphics]::FromImage($bmp)
+$g.CopyFromScreen($b.Location,[Drawing.Point]::Empty,$b.Size)
+$sm=New-Object Drawing.Bitmap 1280,720
+$g2=[Drawing.Graphics]::FromImage($sm)
+$g2.DrawImage($bmp,0,0,1280,720)
+$ms=New-Object IO.MemoryStream
+$enc=[Drawing.Imaging.ImageCodecInfo]::GetImageEncoders()|Where-Object {$_.MimeType -eq 'image/jpeg'}
+$p=New-Object Drawing.Imaging.EncoderParameters 1
+$p.Param[0]=New-Object Drawing.Imaging.EncoderParameter ([Drawing.Imaging.Encoder]::Quality),50
+$sm.Save($ms,$enc,$p)
+"B64:"+[Convert]::ToBase64String($ms.ToArray())
