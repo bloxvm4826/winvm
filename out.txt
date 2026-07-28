@@ -1,3 +1,4 @@
-[08:35:12]
+[08:36:42]
 True
-clicked sign in with password
+True
+typed creds
