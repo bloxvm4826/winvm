@@ -10,10 +10,12 @@ function Key([byte]$vk,[int]$hold=60){ [K]::keybd_event($vk,0,0,0); Start-Sleep 
 function Log($m){ "$(Get-Date -F HH:mm:ss) $m" | Out-File C:\play2.log -Append -Encoding utf8 }
 function Unstick { Key 0x1B; Start-Sleep -m 700; Key 0x1B; Start-Sleep -m 500 }   # kills a purchase prompt; no-op otherwise
 function Respawn {
-  Click 346 124 250; Start-Sleep -m 900
-  Click 365 430 250; Start-Sleep -m 900
-  Click 681 509 250; Start-Sleep -m 3500
-  Log "respawned"
+  Click 346 124 250; Start-Sleep -m 900    # hamburger -> compact menu
+  Click 365 430 250; Start-Sleep -m 900    # Respawn
+  Click 681 476 250; Start-Sleep -m 4000   # CONFIRM (681,476 - not 509)
+  Click 346 124 250; Start-Sleep -m 700    # close the compact menu (stays open after respawn)
+  Joy 0 1200                               # step off the spawn pad
+  Log "respawned+cleared"
 }
 $end = (Get-Date).AddMinutes($Minutes)
 Log "START v2 until $end"
