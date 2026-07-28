@@ -1,7 +1,6 @@
-CClick 799 498 150; Start-Sleep 45
-Click 965 191; Start-Sleep 2
+CClick 395 124; Start-Sleep 2
 Click 304 324; Start-Sleep 2
-"in game, guide toggled"
+"chat closed, guide on?"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
