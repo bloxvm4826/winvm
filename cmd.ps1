@@ -1,6 +1,6 @@
-CClick 745 339
-Start-Sleep 60
-"play-pressed"
+CClick 799 498 150
+Start-Sleep 40
+"quickplay"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
