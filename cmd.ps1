@@ -1,10 +1,23 @@
+Set-Content C:\auto.ps1 -Encoding UTF8 -Value @'
 . C:\l.ps1
 . C:\bot.ps1
-Act
-$null = Click 395 124 150
-Start-Sleep 2
-$null = Click 304 324 250
+$end = (Get-Date).AddHours(5)
+$n = 0
+while ((Get-Date) -lt $end) {
+  $n++
+  try {
+    Act
+    if (Drowned) { Respawn }
+    if ($n % 4 -eq 1) { $null = Wheel -6 }
+    Guided 4
+    Respawn                      # reset to base spawn so we never stay lost
+  } catch { Start-Sleep 5 }
+  Add-Content C:\auto.log ("loop $n " + (Get-Date -Format HH:mm:ss))
+}
+'@
+Start-Process powershell -ArgumentList "-NoProfile","-ExecutionPolicy","Bypass","-File","C:\auto.ps1" -WindowStyle Hidden
 Start-Sleep 3
+Write-Host ("autopilot started " + (Get-Date -Format HH:mm:ss))
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
