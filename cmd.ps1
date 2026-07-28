@@ -1,3 +1,5 @@
-CClick 796 586
-Start-Sleep 6
-"signed in"
+CClick 1447 371
+Start-Sleep 2
+CClick 432 465
+Start-Sleep 4
+"clicked play"
