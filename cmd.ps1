@@ -1,9 +1,3 @@
-CClick 965 191; Start-Sleep 2
-Click 346 124; Start-Sleep 2
-Click 365 430; Start-Sleep 2
-Click 681 476; Start-Sleep 8
-Click 304 324; Start-Sleep 2
-"respawn+guide"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
