@@ -1,11 +1,7 @@
 . C:\l.ps1
 Act
-$null = Click 432 464 200
-Start-Sleep 6
-$null = Click 885 521 200
-Start-Sleep 12
-$null = Click 799 549 200
-Start-Sleep 15
+$null = Click 875 117 200
+Start-Sleep 5
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
