@@ -1,4 +1,4 @@
-iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1 -o C:\l.ps1; . C:\l.ps1
+iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1 -OutFile C:\l.ps1; . C:\l.ps1
 . C:\bot.ps1
 CClick 799 521; Start-Sleep 5
 Click 432 464; Start-Sleep 5
