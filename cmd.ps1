@@ -40,6 +40,58 @@ function GreenTarget {
   @{ ang = [int]$ang; dist = [int]$bd; count = $n }
 }
 
+# Follow the in-game Guide: the green chevron trail points at the next thing you can buy.
+# Averages the direction of every green pixel in an annulus around the character.
+function GuideDir {
+  $b = New-Object Drawing.Bitmap $global:SW, $global:SH
+  $g = [Drawing.Graphics]::FromImage($b)
+  $g.CopyFromScreen($global:SX, $global:SY, 0, 0, (New-Object Drawing.Size $global:SW, $global:SH))
+  $w = 220; $h = [int]($global:SH * $w / $global:SW)
+  $s = New-Object Drawing.Bitmap $w, $h
+  $g2 = [Drawing.Graphics]::FromImage($s); $g2.DrawImage($b, 0, 0, $w, $h)
+  $cx = ($global:CHX - $global:SX) * $w / $global:SW
+  $cy = ($global:CHY - $global:SY) * $w / $global:SW
+  $sx = 0.0; $sy = 0.0; $n = 0; $near = 0
+  for ($y = 1; $y -lt $h - 1; $y++) {
+    for ($x = 1; $x -lt $w - 1; $x++) {
+      $p = $s.GetPixel($x, $y)
+      if ($p.G -gt 120 -and $p.R -lt 120 -and $p.B -lt 120 -and ($p.G - $p.R) -gt 45) {
+        $dx = $x - $cx; $dy = $y - $cy
+        $d = [Math]::Sqrt($dx * $dx + $dy * $dy)
+        if ($d -lt 6) { continue }
+        if ($d -lt 16) { $near++ }
+        if ($d -le 75) { $sx += $dx / $d; $sy += $dy / $d; $n++ }
+      }
+    }
+  }
+  $g.Dispose(); $g2.Dispose(); $b.Dispose(); $s.Dispose()
+  if ($n -lt 4) { return $null }
+  $ang = [Math]::Atan2($sx, - $sy) * 180 / [Math]::PI
+  if ($ang -lt 0) { $ang += 360 }
+  @{ ang = [int]$ang; count = $n; near = $near }
+}
+
+function Guided([int]$Minutes = 10) {
+  Act
+  $end = (Get-Date).AddMinutes($Minutes)
+  $i = 0; $miss = 0
+  while ((Get-Date) -lt $end) {
+    $i++
+    if (Guard) { continue }
+    $t = GuideDir
+    if ($t) {
+      $ms = if ($t.near -gt 6) { 300 } else { 700 }
+      Joy $t.ang $ms
+      if ($i % 8 -eq 0) { Write-Host ("{0} ang={1} px={2} near={3}" -f $i, $t.ang, $t.count, $t.near) }
+    } else {
+      $miss++
+      Look 300
+      if ($miss % 3 -eq 0) { Joy (Get-Random -Minimum 0 -Maximum 359) 1200 }
+    }
+  }
+  Write-Host "guided done iters=$i miss=$miss"
+}
+
 function GetPix([int]$x, [int]$y) {
   $b = New-Object Drawing.Bitmap 1, 1
   $g = [Drawing.Graphics]::FromImage($b)
@@ -83,7 +135,8 @@ Write-Host "bot loaded: GreenTarget Bot"
 
 '@
 . C:\bot.ps1
-Bot 14
+CClick 304 324; Start-Sleep 2
+$t=GuideDir; if($t){"dir=$($t.ang) px=$($t.count) near=$($t.near)"}else{"none"}
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
