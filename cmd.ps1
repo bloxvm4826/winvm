@@ -1,7 +1,8 @@
+iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1 -o C:\l.ps1; . C:\l.ps1
 . C:\bot.ps1
 CClick 799 521; Start-Sleep 5
 Click 432 464; Start-Sleep 5
-Click 885 521; Start-Sleep 55
+Click 885 521; Start-Sleep 50
 "relaunched"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
