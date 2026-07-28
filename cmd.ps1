@@ -1,3 +1,3 @@
-CClick 1405 126
+CClick 796 445
 Start-Sleep 2
-"clicked sign in"
+"opened server dropdown"
