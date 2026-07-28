@@ -2,9 +2,11 @@
 . C:\bot.ps1
 Act
 $null=KeyDown 0x1B; Start-Sleep -m 90; $null=KeyUp 0x1B
-Start-Sleep 2
-Respawn
-Start-Sleep 2
+Start-Sleep -m 600
+$null=KeyDown 0x1B; Start-Sleep -m 90; $null=KeyUp 0x1B
+Start-Sleep -m 400
+$null=KeyDown 0x53; Start-Sleep 2500; $null=KeyUp 0x53
+Start-Sleep 1
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
