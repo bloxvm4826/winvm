@@ -1,12 +1,9 @@
-'TAG:T1785258725'
-Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*play2.ps1*" } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -EA 0; "killed "+$_.ProcessId }
-Start-Sleep -m 600
-"respawn lines in log: " + ((Get-Content C:\play2.log | Select-String "respawned").Count)
+'TAG:T1785258753'
 . C:\l.ps1
 Act
-Click 346 124 250      # Roblox hamburger
-Start-Sleep -m 1200
-"menu opened"
+Click 681 476 250     # confirm "Respawn" (correct coord)
+Start-Sleep -m 4000
+"confirmed"
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 $b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
 $bmp=New-Object Drawing.Bitmap $b.Width,$b.Height
