@@ -1,6 +1,19 @@
-CClick 885 521
-Start-Sleep 55
-"play-clicked"
+CClick 799 549
+Start-Sleep 2
+Click 1281 265
+Start-Sleep 2
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class W3 {
+  [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y);
+  [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, int d, int e);
+}
+"@ -EA SilentlyContinue
+function Scroll([int]$x,[int]$y,[int]$n){ [W3]::SetCursorPos($x,$y); Start-Sleep -m 200; for($i=0;$i -lt [Math]::Abs($n);$i++){ [W3]::mouse_event(0x0800,0,0,(120*[Math]::Sign($n)),0); Start-Sleep -m 150 } }
+Scroll 800 500 -4
+Start-Sleep 3
+"dismissed+scrolled"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
