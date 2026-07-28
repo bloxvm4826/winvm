@@ -1,6 +1,7 @@
-CClick 395 124; Start-Sleep 2
-Click 304 324; Start-Sleep 3
-"chat-closed+guide"
+Act
+Joy 135 900; Joy 135 900; Joy 135 900
+Start-Sleep 1
+"walk135"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
