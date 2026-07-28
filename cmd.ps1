@@ -1,9 +1,9 @@
 . C:\bot.ps1
-CClick 346 124; Start-Sleep 2
-Click 365 430; Start-Sleep 2
-Click 681 476; Start-Sleep 9
-Guard | Out-Null
-"respawned"
+Act
+MoveAng 90 2500
+MoveAng 0 2000
+MoveAng 90 1500
+"moved out?"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
