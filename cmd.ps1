@@ -1,6 +1,6 @@
-(Get-Item C:\bot.ps1).Length
-(Get-Item C:\auto.ps1).Length
-(Get-Content C:\auto.ps1 -TotalCount 3) -join " | "
+irm "https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1" -OutFile C:\bot.ps1
+irm "https://raw.githubusercontent.com/bloxvm4826/winvm/main/auto.ps1" -OutFile C:\auto.ps1
+"{0} {1}" -f (Get-Item C:\bot.ps1).Length, (Get-Item C:\auto.ps1).Length
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
