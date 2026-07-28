@@ -1,5 +1,6 @@
-Play 5 2200
-"played5"
+CClick 894 524; Start-Sleep 2
+Click 388 143; Start-Sleep 3
+"notnow+menu"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
