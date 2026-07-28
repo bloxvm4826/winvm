@@ -1,17 +1,14 @@
-'TAG:T1785258153'
-$k = Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*auto.ps1*" }
-if($k){ $k | ForEach-Object { "killing autopilot PID "+$_.ProcessId; Stop-Process -Id $_.ProcessId -Force -EA 0 } } else { "no auto.ps1 process" }
-Start-Sleep -m 500
+'TAG:T1785258317'
 . C:\l.ps1
-Add-Type @"
-using System;
-using System.Runtime.InteropServices;
-public class K { [DllImport("user32.dll")] public static extern void keybd_event(byte v, byte s, uint f, int e); }
-"@ -EA SilentlyContinue
+if (-not ("K" -as [type])) {
+  Add-Type "using System;using System.Runtime.InteropServices;public class K { [DllImport(\"user32.dll\")] public static extern void keybd_event(byte v, byte s, uint f, int e); }"
+}
 function Key([byte]$vk,[int]$hold=60){ [K]::keybd_event($vk,0,0,0); Start-Sleep -m $hold; [K]::keybd_event($vk,0,2,0); Start-Sleep -m 250 }
+$a = Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*auto.ps1*" }
+"autopilot still running: " + $(if($a){($a.ProcessId -join ",")}else{"NO - stopped"})
 Act
 Key 0x1B
-Start-Sleep -m 900
+Start-Sleep -m 1000
 "esc sent"
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 $b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
