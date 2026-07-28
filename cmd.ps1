@@ -1,7 +1,8 @@
-CClick 799 521; Start-Sleep 5
-Click 432 464; Start-Sleep 5
-Click 885 521; Start-Sleep 55
-"relaunched"
+CClick 799 549; Start-Sleep 3
+Click 875 116; Start-Sleep 4
+Click 572 321; Start-Sleep 6
+Click 745 339; Start-Sleep 55
+"joining"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
