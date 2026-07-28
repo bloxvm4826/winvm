@@ -1,5 +1,4 @@
-Get-Content C:\auto.log -Tail 3 -ErrorAction SilentlyContinue
-$p=(Get-Process powershell -ErrorAction SilentlyContinue).Count; Write-Host "psproc=$p"
+cmd /c "\"C:\Program Files\RustDesk\rustdesk.exe\" --get-id > C:\id.txt" ; Start-Sleep 3; Get-Content C:\id.txt
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
