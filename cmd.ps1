@@ -1,7 +1,8 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-foreach($i in 1..14){ $null=KeyDown 0x4F; Start-Sleep -m 70; $null=KeyUp 0x4F; Start-Sleep -m 120 }
+foreach($k in 0x31,0x32,0x33){ $null=KeyDown $k; Start-Sleep -m 90; $null=KeyUp $k; Start-Sleep -m 700 }
+$null = Click 1128 549 150
 Start-Sleep 2
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
