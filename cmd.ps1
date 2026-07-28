@@ -1,6 +1,8 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
+$null = Click 395 124 150
+Start-Sleep 2
 $null = Click 304 324 250
 Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
