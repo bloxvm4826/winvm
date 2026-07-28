@@ -1,4 +1,5 @@
-iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1 -o C:\bot.ps1; . C:\bot.ps1
+iwr ("https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1?t=" + (Get-Random)) -o C:\bot.ps1; . C:\bot.ps1
+"SX=$($global:SX) SW=$($global:SW)"
 $t = GreenTarget; if($t){ "target ang=$($t.ang) dist=$($t.dist) px=$($t.count)" } else { "no green" }
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
