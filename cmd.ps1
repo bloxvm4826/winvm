@@ -1,7 +1,10 @@
 . C:\l.ps1
 . C:\bot.ps1
-Click 681 476
-Start-Sleep 10
+Act
+Drag 1100 400 1100 250
+Start-Sleep -m 400
+KeyDown 0x20; KeyDown 0x57; Start-Sleep 5; KeyUp 0x57; KeyUp 0x20
+Start-Sleep 1
 Write-Host ("drowned=" + (Drowned))
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
