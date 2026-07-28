@@ -1,5 +1,3 @@
-[17:32:43]
-TAG:T1785259824
-listening: 3389,6080,5900
-cf size: 54213360
-rustdesk id: 302357884
+[17:33:18]
+TAG:T1785259976
+TUNNEL: https://afford-hill-train-breed.trycloudflare.com
