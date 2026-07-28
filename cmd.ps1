@@ -1,7 +1,9 @@
 . C:\bot.ps1
-CClick 965 191; Start-Sleep 2
-Click 284 125; Start-Sleep 3
-"menu open?"
+Click 331 124; Start-Sleep 2
+Act
+KeyDown 0x1B; Start-Sleep -m 90; KeyUp 0x1B
+Start-Sleep 3
+"esc pressed"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
