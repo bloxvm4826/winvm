@@ -1,3 +1,3 @@
-[08:34:43]
+[08:35:12]
 True
-server keyboard-selected
+clicked sign in with password
