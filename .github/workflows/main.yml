@@ -94,6 +94,31 @@ jobs:
           Start-Sleep 6
           netstat -an | Select-String ":6080"
 
+      - name: Install RustDesk
+        run: |
+          $ErrorActionPreference = 'Continue'
+          Invoke-WebRequest 'https://github.com/rustdesk/rustdesk/releases/download/1.3.9/rustdesk-1.3.9-x86_64.exe' -OutFile 'C:\rd.exe'
+          Start-Process 'C:\rd.exe' -ArgumentList '--silent-install'
+          Start-Sleep 75
+          $exe = 'C:\Program Files\RustDesk\rustdesk.exe'
+          if (-not (Test-Path $exe)) { 'rustdesk=FAILED' | Set-Content C:\rdid.txt; Write-Host 'rustdesk missing'; exit 0 }
+          sc.exe start rustdesk
+          Start-Sleep 8
+          Start-Process $exe
+          Start-Sleep 25
+          & $exe --password 'BlxVm2026rd'
+          Start-Sleep 10
+          $id = $null
+          $cfgs = @('C:\Windows\ServiceProfiles\LocalService\AppData\Roaming\RustDesk\config\RustDesk.toml', "$env:APPDATA\RustDesk\config\RustDesk.toml")
+          foreach ($p in $cfgs) {
+            if (Test-Path $p) {
+              $m = Select-String -Path $p -Pattern "id\s*=\s*'?([0-9]{6,})" | Select-Object -First 1
+              if ($m) { $id = $m.Matches[0].Groups[1].Value; break }
+            }
+          }
+          Write-Host "rustdesk id: $id"
+          "rustdesk=$id pw=BlxVm2026rd" | Set-Content C:\rdid.txt
+
       - name: Launch Chrome on CloudMoon
         run: |
           $chrome = "C:\Program Files\Google\Chrome\Application\chrome.exe"
@@ -140,6 +165,7 @@ jobs:
           }
           $lines = $t | ForEach-Object { "$($_.name)=$($_.public_url)" }
           $out = ($lines -join "`n")
+          if (Test-Path C:\rdid.txt) { $out = $out + "`n" + ((Get-Content C:\rdid.txt -Raw).Trim()) }
           Write-Host $out
           Set-Content -Path url.txt -Value $out
 
