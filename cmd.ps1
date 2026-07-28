@@ -1,4 +1,6 @@
-Write-Host ("up " + (Get-Date -Format HH:mm:ss)); Write-Host (Test-Path C:\l.ps1)
+iwr -UseBasicParsing "https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1" -OutFile C:\l.ps1
+iwr -UseBasicParsing "https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1" -OutFile C:\bot.ps1
+. C:\l.ps1; . C:\bot.ps1; Act; Write-Host "libs ok"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
