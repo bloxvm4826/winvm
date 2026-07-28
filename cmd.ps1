@@ -2,10 +2,7 @@
 . C:\bot.ps1
 Act
 $null = Click 304 324 250
-Start-Sleep 2
-$null = Wheel -10
-Grind 10
-Write-Host ("done " + (Get-Date -Format HH:mm:ss))
+Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
