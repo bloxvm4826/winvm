@@ -1,7 +1,6 @@
 Act
-Joy 180 1000; Start-Sleep 1
-Joy 180 1000; Start-Sleep 1
-"follow guide 180"
+Joy 275 700; Start-Sleep 2
+"upper walls"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
