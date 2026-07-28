@@ -1,7 +1,6 @@
-Act
-Drag 800 640 800 260 200 25
-Start-Sleep 3
-"swiped"
+CClick 875 116
+Start-Sleep 4
+"tapped-search"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
