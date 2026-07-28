@@ -115,15 +115,15 @@ function Guided([int]$Minutes = 10) {
 }
 
 # Serpentine sweep of the plot + micro-steps onto any pad right next to us.
-Add-Type @"
+try { Add-Type @"
 using System;
 using System.Runtime.InteropServices;
-public class W4 { [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y); [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, int d, int e); }
-"@ -ErrorAction SilentlyContinue
+public class W5 { [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y); [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, int d, int e); }
+"@ -ErrorAction SilentlyContinue } catch { }
 
 function Wheel([int]$n) {
-  [W4]::SetCursorPos(800, 400); Start-Sleep -m 150
-  for ($i = 0; $i -lt [Math]::Abs($n); $i++) { [W4]::mouse_event(0x0800, 0, 0, (120 * [Math]::Sign($n)), 0); Start-Sleep -m 110 }
+  [W5]::SetCursorPos(800, 400); Start-Sleep -m 150
+  for ($i = 0; $i -lt [Math]::Abs($n); $i++) { [W5]::mouse_event(0x0800, 0, 0, (120 * [Math]::Sign($n)), 0); Start-Sleep -m 110 }
 }
 
 function Grind([int]$Minutes = 10) {
