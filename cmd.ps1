@@ -1,7 +1,5 @@
-CClick 929 574; Start-Sleep 3
-Click 799 529; Start-Sleep 2
-Click 1026 244; Start-Sleep 2
-"largecrate+close"
+CClick 872 530; Start-Sleep 3
+"confirmed"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
