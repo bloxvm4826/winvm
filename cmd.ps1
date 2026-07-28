@@ -167,6 +167,8 @@ function IsModal {
 
 # Close it by trying each known X / dismiss button in a safe order (never a Buy button first).
 function Guard {
+  $s = GetPix 965 191                       # Sergeant tutorial popup: red Close button
+  if ($s.R -gt 150 -and $s.G -lt 80 -and $s.B -lt 80) { Click 965 191; Start-Sleep -m 500 }
   if (-not (IsModal)) { return $false }
   foreach ($c in @(@(1013, 216), @(617, 275), @(939, 329), @(800, 511), @(894, 524))) {
     Click $c[0] $c[1]
@@ -204,7 +206,7 @@ Write-Host "bot loaded: GreenTarget Bot"
 
 '@
 . C:\bot.ps1
-Grind 12
+Grind 13
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
