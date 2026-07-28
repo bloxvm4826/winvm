@@ -1,9 +1,6 @@
 . C:\bot.ps1
-Act
-MoveAng 90 2500
-MoveAng 0 2000
-MoveAng 90 1500
-"moved out?"
+CClick 325 350; Start-Sleep 3
+"clicked base status"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
