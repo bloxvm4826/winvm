@@ -1,4 +1,10 @@
-cmd /c "\"C:\Program Files\RustDesk\rustdesk.exe\" --get-id > C:\id.txt" ; Start-Sleep 3; Get-Content C:\id.txt
+Get-Process powershell | Where-Object { $_.Id -ne $PID } | ForEach-Object { try{ $_.Kill() }catch{} }
+Start-Sleep 2
+. C:\l.ps1
+. C:\bot.ps1
+Act
+$null = Click 1324 301 150
+Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
