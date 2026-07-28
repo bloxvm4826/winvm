@@ -1,5 +1,4 @@
 iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1 -o C:\bot.ps1; . C:\bot.ps1
-CClick 304 324; Start-Sleep 2
 $t = GreenTarget; if($t){ "target ang=$($t.ang) dist=$($t.dist) px=$($t.count)" } else { "no green" }
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
