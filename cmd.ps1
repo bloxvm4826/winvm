@@ -1,8 +1,15 @@
 . C:\l.ps1
 . C:\bot.ps1
+Add-Type -AssemblyName System.Windows.Forms
 Act
-$null = Click 852 588 150
-Start-Sleep 3
+$null = Click 796 450
+Start-Sleep 1
+[System.Windows.Forms.SendKeys]::SendWait("somanyalts30@gmail.com")
+Start-Sleep 1
+$null = Click 796 519
+Start-Sleep 1
+[System.Windows.Forms.SendKeys]::SendWait("Azerty060809*")
+Start-Sleep 1
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
