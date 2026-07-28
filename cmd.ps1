@@ -1,6 +1,6 @@
 . C:\bot.ps1
-CClick 924 659; Start-Sleep 3
-"next base"
+CClick 284 125; Start-Sleep 4
+"back"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
