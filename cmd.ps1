@@ -1,8 +1,11 @@
-'TAG:T1785259733'
-Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*play3.ps1*" -or $_.CommandLine -like "*play2.ps1*" } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -EA 0 }
-$t=[int](Get-Date -UFormat %s)
-irm "https://raw.githubusercontent.com/bloxvm4826/winvm/main/play4.ps1?t=$t" -OutFile C:\play4.ps1
-Remove-Item C:\play4.log -EA 0
-Start-Process powershell -ArgumentList "-ExecutionPolicy","Bypass","-WindowStyle","Hidden","-File","C:\play4.ps1","-Minutes","215" -WindowStyle Hidden
-Start-Sleep -m 3000
-"keepalive: " + ((Get-Content C:\play4.log -EA 0) -join " / ")
+'TAG:T1785259824'
+# noVNC listener check
+$p = (Get-NetTCPConnection -State Listen -EA 0 | Where-Object { $_.LocalPort -in 6080,5900,3389 } | Select-Object -Expand LocalPort -Unique) -join ","
+"listening: $p"
+if (-not (Test-Path C:\cloudflared.exe)) {
+  irm "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe" -OutFile C:\cloudflared.exe
+}
+"cf size: " + (Get-Item C:\cloudflared.exe).Length
+# RustDesk ID as a backup route (needs the cmd redirect; direct call prints nothing)
+$rd = "C:\Program Files\RustDesk\rustdesk.exe"
+if (Test-Path $rd) { cmd /c "`"$rd`" --get-id > C:\id.txt 2>&1"; "rustdesk id: " + ((Get-Content C:\id.txt -EA 0) -join "") } else { "no rustdesk" }
