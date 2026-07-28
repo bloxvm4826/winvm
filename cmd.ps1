@@ -1,8 +1,7 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-$null = Click 681 476 250
-Start-Sleep 8
+Guided 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
