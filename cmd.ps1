@@ -1,7 +1,5 @@
-CClick 681 476; Start-Sleep 8
-Drag 965 200 965 300 200 20
-Start-Sleep 2
-"respawned+camdown"
+CClick 304 324; Start-Sleep 3
+"guide-toggled"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
