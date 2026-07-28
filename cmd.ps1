@@ -1,1 +1,1 @@
-Play 12 900
+Write-Host "idle"
