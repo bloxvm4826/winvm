@@ -1,7 +1,6 @@
-if(-not (Get-Command CClick -EA 0)){ iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/lib.ps1 -o C:\l.ps1; . C:\l.ps1 }
-CClick 799 521
-Start-Sleep 4
-"ok-clicked"
+CClick 432 464
+Start-Sleep 6
+"launch-clicked"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
