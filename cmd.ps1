@@ -1,9 +1,7 @@
-. C:\l.ps1
-Act
-$null = Click 395 124 200
-Start-Sleep 2
-$null = Click 304 324 200
-Start-Sleep 3
+Remove-Item C:\auto.log -ErrorAction SilentlyContinue
+Start-Process powershell -ArgumentList "-ExecutionPolicy","Bypass","-File","C:\auto.ps1" -WindowStyle Hidden
+Start-Sleep 20
+(Get-Content C:\auto.log -ErrorAction SilentlyContinue) -join " | "
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
