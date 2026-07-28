@@ -95,29 +95,31 @@ jobs:
           netstat -an | Select-String ":6080"
 
       - name: Install RustDesk
+        continue-on-error: true
         run: |
           $ErrorActionPreference = 'Continue'
           Invoke-WebRequest 'https://github.com/rustdesk/rustdesk/releases/download/1.3.9/rustdesk-1.3.9-x86_64.exe' -OutFile 'C:\rd.exe'
           Start-Process 'C:\rd.exe' -ArgumentList '--silent-install'
           Start-Sleep 75
           $exe = 'C:\Program Files\RustDesk\rustdesk.exe'
-          if (-not (Test-Path $exe)) { 'rustdesk=FAILED' | Set-Content C:\rdid.txt; Write-Host 'rustdesk missing'; exit 0 }
-          sc.exe start rustdesk
-          Start-Sleep 8
-          Start-Process $exe
-          Start-Sleep 25
-          & $exe --password 'BlxVm2026rd'
-          Start-Sleep 10
-          $id = $null
-          $cfgs = @('C:\Windows\ServiceProfiles\LocalService\AppData\Roaming\RustDesk\config\RustDesk.toml', "$env:APPDATA\RustDesk\config\RustDesk.toml")
-          foreach ($p in $cfgs) {
-            if (Test-Path $p) {
-              $m = Select-String -Path $p -Pattern "id\s*=\s*'?([0-9]{6,})" | Select-Object -First 1
-              if ($m) { $id = $m.Matches[0].Groups[1].Value; break }
+          if (Test-Path $exe) {
+            Start-Process $exe
+            Start-Sleep 30
+            Start-Process $exe -ArgumentList '--password','BlxVm2026rd'
+            Start-Sleep 15
+            $id = $null
+            $tomls = Get-ChildItem 'C:\Windows\ServiceProfiles','C:\Users' -Recurse -Filter 'RustDesk.toml' -Force -ErrorAction SilentlyContinue
+            foreach ($t in $tomls) {
+              Write-Host ("toml: " + $t.FullName)
+              $m = Select-String -Path $t.FullName -Pattern "id\s*=\s*.?([0-9]{6,})" -ErrorAction SilentlyContinue | Select-Object -First 1
+              if ($m -and -not $id) { $id = $m.Matches[0].Groups[1].Value }
             }
+            Write-Host "rustdesk id: $id"
+            "rustdesk=$id pw=BlxVm2026rd" | Set-Content C:\rdid.txt
+          } else {
+            'rustdesk=FAILED' | Set-Content C:\rdid.txt
           }
-          Write-Host "rustdesk id: $id"
-          "rustdesk=$id pw=BlxVm2026rd" | Set-Content C:\rdid.txt
+          exit 0
 
       - name: Launch Chrome on CloudMoon
         run: |
