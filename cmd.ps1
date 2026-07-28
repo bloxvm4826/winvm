@@ -1,3 +1,6 @@
-CClick 794 529
+Add-Type -AssemblyName System.Windows.Forms
+CClick 796 445
 Start-Sleep 2
-"picked US East"
+[System.Windows.Forms.SendKeys]::SendWait("{DOWN}{DOWN}{ENTER}")
+Start-Sleep 2
+"server keyboard-selected"
