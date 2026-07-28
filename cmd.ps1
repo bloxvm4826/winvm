@@ -1,9 +1,7 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-$null=KeyDown 0x1B; Start-Sleep -m 90; $null=KeyUp 0x1B
-Start-Sleep 2
-$null = Click 285 124 200
+$null = Click 800 622 200
 Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
