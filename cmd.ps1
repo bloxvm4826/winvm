@@ -1,5 +1,14 @@
-'TAG:T1785259129'
-"log: "+((Get-Content C:\play2.log -Tail 4) -join " / ")
+'TAG:T1785259168'
+Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*play2.ps1*" } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -EA 0 }
+Start-Sleep -m 600
+. C:\l.ps1
+function Key([byte]$vk,[int]$hold=60){ [K]::keybd_event($vk,0,0,0); Start-Sleep -m $hold; [K]::keybd_event($vk,0,2,0); Start-Sleep -m 250 }
+Act
+Key 0x1B                 # kill the Robux prompt
+Start-Sleep -m 900
+Click 346 124 250        # toggle the compact menu shut
+Start-Sleep -m 900
+"cleared"
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 $b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
 $bmp=New-Object Drawing.Bitmap $b.Width,$b.Height
