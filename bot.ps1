@@ -3,7 +3,7 @@
 Add-Type -AssemblyName System.Drawing
 
 # Stream area on the desktop (CloudMoon canvas inside Chrome), remote coords.
-$global:SX = 250; $global:SY = 90; $global:SW = 1100; $global:SH = 620
+$global:SX = 430; $global:SY = 140; $global:SW = 860; $global:SH = 560
 $global:CHX = 800; $global:CHY = 430   # character on screen
 
 function GreenTarget {
