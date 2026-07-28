@@ -1,6 +1,7 @@
 . C:\bot.ps1
-CClick 800 659; Start-Sleep 12
-"claimed"
+CClick 304 324; Start-Sleep 2
+$t = GuideDir; if($t){"guide px=$($t.count)"}else{"no arrows"}
+Grind 11
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
