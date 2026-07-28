@@ -1,3 +1,3 @@
 novnc=https://opal-pouncing-defog.ngrok-free.dev
-rdp=tcp://6.tcp.us-cal-1.ngrok.io:20620
+rdp=tcp://2.tcp.us-cal-1.ngrok.io:18176
 rustdesk= pw=BlxVm2026rd
