@@ -1,6 +1,6 @@
-CClick 572 321
-Start-Sleep 6
-"tapped-wartycoon"
+CClick 745 339
+Start-Sleep 60
+"play-pressed"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
