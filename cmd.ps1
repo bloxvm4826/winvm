@@ -1,7 +1,7 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-$null = Wheel -30
+foreach($i in 1..14){ $null=KeyDown 0x4F; Start-Sleep -m 70; $null=KeyUp 0x4F; Start-Sleep -m 120 }
 Start-Sleep 2
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
