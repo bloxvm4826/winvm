@@ -1,2 +1,2 @@
-'TAG:T1785258109'
-Get-Content C:\l.ps1 -Raw
+'TAG:T1785258121'
+(Get-Content C:\l.ps1 | Select-Object -Skip 44) -join "`n"
