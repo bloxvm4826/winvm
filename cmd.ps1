@@ -1,3 +1,3 @@
-CClick 885 521
-Start-Sleep 5
-"confirmed play"
+CClick 799 549
+Start-Sleep 3
+"ok clicked"
