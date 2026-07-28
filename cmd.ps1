@@ -1,7 +1,6 @@
-Act
-Joy 20 900; Start-Sleep 1
-Joy 20 900; Start-Sleep 2
-"toward top green pad"
+iwr https://raw.githubusercontent.com/bloxvm4826/winvm/main/bot.ps1 -o C:\bot.ps1; . C:\bot.ps1
+CClick 304 324; Start-Sleep 2
+$t = GreenTarget; if($t){ "target ang=$($t.ang) dist=$($t.dist) px=$($t.count)" } else { "no green" }
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
