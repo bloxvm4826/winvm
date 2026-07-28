@@ -1,6 +1,6 @@
-CClick 432 464
-Start-Sleep 6
-"launch-clicked"
+CClick 885 521
+Start-Sleep 55
+"play-clicked"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
