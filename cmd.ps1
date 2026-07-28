@@ -1,7 +1,7 @@
 . C:\l.ps1
 . C:\bot.ps1
 Act
-$null = Wheel 12
+$null = Wheel -30
 Start-Sleep 2
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
