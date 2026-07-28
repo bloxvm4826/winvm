@@ -69,6 +69,8 @@ function Bot([int]$Minutes = 5) {
       $ms = if ($t.dist -gt 60) { 900 } elseif ($t.dist -gt 25) { 500 } else { 260 }
       Joy $t.ang $ms
       if ($i % 6 -eq 0) { Write-Host ("{0} ang={1} d={2} px={3}" -f $i, $t.ang, $t.dist, $t.count) }
+      # every so often relocate so we don't camp one pad / the cash machine
+      if ($i % 14 -eq 0) { Joy (Get-Random -Minimum 0 -Maximum 359) 1400; Joy (Get-Random -Minimum 0 -Maximum 359) 1400 }
     } else {
       $miss++
       Look 260
@@ -81,8 +83,7 @@ Write-Host "bot loaded: GreenTarget Bot"
 
 '@
 . C:\bot.ps1
-(Guard)
-"guard-run"
+Bot 14
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
