@@ -1,15 +1,13 @@
-'TAG:T1785258317'
+'TAG:T1785258347'
 . C:\l.ps1
-if (-not ("K" -as [type])) {
-  Add-Type "using System;using System.Runtime.InteropServices;public class K { [DllImport(\"user32.dll\")] public static extern void keybd_event(byte v, byte s, uint f, int e); }"
-}
 function Key([byte]$vk,[int]$hold=60){ [K]::keybd_event($vk,0,0,0); Start-Sleep -m $hold; [K]::keybd_event($vk,0,2,0); Start-Sleep -m 250 }
-$a = Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like "*auto.ps1*" }
-"autopilot still running: " + $(if($a){($a.ProcessId -join ",")}else{"NO - stopped"})
 Act
-Key 0x1B
-Start-Sleep -m 1000
-"esc sent"
+Key 0x1B          # close the Roblox menu (Resume)
+Start-Sleep -m 800
+Joy 180 1400      # walk backwards off the weapon pad
+Start-Sleep -m 400
+Joy 180 1200
+"walked off pad"
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 $b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds
 $bmp=New-Object Drawing.Bitmap $b.Width,$b.Height
