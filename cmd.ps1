@@ -1,9 +1,9 @@
-Get-Process powershell | Where-Object { $_.Id -ne $PID } | ForEach-Object { try{ $_.Kill() }catch{} }
-Start-Sleep 2
 . C:\l.ps1
 . C:\bot.ps1
 Act
-$null = Click 1324 301 150
+$null = Click 1071 234 150
+Start-Sleep 2
+$null = Click 325 356 200
 Start-Sleep 3
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
