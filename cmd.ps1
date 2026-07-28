@@ -1,3 +1,3 @@
-CClick 796 445
+CClick 794 529
 Start-Sleep 2
-"opened server dropdown"
+"picked US East"
