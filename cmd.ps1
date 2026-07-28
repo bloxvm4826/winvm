@@ -1,6 +1,6 @@
 . C:\bot.ps1
-Act
-for($i=1;$i -le 8;$i++){ Click 924 659; Start-Sleep -m 1400; $c = GetPix 800 659; "$i $($c.R),$($c.G),$($c.B)" }
+CClick 800 659; Start-Sleep 12
+"claimed"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
