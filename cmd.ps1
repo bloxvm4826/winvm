@@ -1,7 +1,7 @@
-CClick 506 609; Start-Sleep 2
-Click 749 609; Start-Sleep 2
-Click 629 609; Start-Sleep 3
-"claims"
+CClick 799 529; Start-Sleep 2
+Click 799 529; Start-Sleep 2
+Click 1187 117; Start-Sleep 3
+"skip+reopen"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
