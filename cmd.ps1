@@ -1,5 +1,7 @@
-Play 7 1800
-"played7"
+CClick 1013 216; Start-Sleep 2
+Drag 965 200 965 280 200 18
+Start-Sleep 1
+"closed robux dialog"
 Add-Type -AssemblyName System.Drawing
 $b=New-Object Drawing.Bitmap 1600,900
 $g=[Drawing.Graphics]::FromImage($b); $g.CopyFromScreen(0,0,0,0,(New-Object Drawing.Size 1600,900))
